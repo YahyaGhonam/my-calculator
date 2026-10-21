@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>آلتي الحاسبة</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #eef2ff;
+      display: grid;
+      place-items: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+
+    .calculator {
+      background: white;
+      padding: 28px;
+      border-radius: 18px;
+      width: min(320px, 80%);
+      box-shadow: 0 8px 30px #0002;
+    }
+
+    h1 {
+      text-align: center;
+      color: #4338ca;
+    }
+
+    input, select, button {
+      box-sizing: border-box;
+      width: 100%;
+      padding: 12px;
+      margin-top: 12px;
+      font-size: 17px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      background: #4338ca;
+      color: white;
+      cursor: pointer;
+      border: none;
+    }
+
+    button:hover {
+      background: #312e81;
+    }
+
+    #result {
+      text-align: center;
+      font-size: 22px;
+      overflow-wrap: anywhere;
+    }
+  </style>
+</head>
+
+<body>
+  <main class="calculator">
+    <h1>آلتي الحاسبة</h1>
+
+    <input id="num1" type="number" step="any"
+           placeholder="الرقم الأول">
+
+    <select id="operation">
+      <option value="+">جمع (+)</option>
+      <option value="-">طرح (-)</option>
+      <option value="*">ضرب (×)</option>
+      <option value="/">قسمة (÷)</option>
+    </select>
+
+    <input id="num2" type="number" step="any"
+           placeholder="الرقم الثاني">
+
+    <button onclick="calculate()">احسب النتيجة</button>
+
+    <p id="result" aria-live="polite">النتيجة هتظهر هنا</p>
+  </main>
+
+  <script>
+    function calculate() {
+      const x = document.getElementById("num1").value;
+      const y = document.getElementById("num2").value;
+      const op = document.getElementById("operation").value;
+      const result = document.getElementById("result");
+
+      if (x.trim() === "" || y.trim() === "") {
+        result.textContent = "اكتب الرقمين الأول";
+        return;
+      }
+
+      const a = Number(x);
+      const b = Number(y);
+      let answer;
+
+      if (op === "+") answer = a + b;
+      else if (op === "-") answer = a - b;
+      else if (op === "*") answer = a * b;
+      else if (op === "/") {
+        if (b === 0) {
+          result.textContent = "مينفعش القسمة على صفر";
+          return;
+        }
+        answer = a / b;
+      }
+
+      result.textContent = "النتيجة: " + answer;
+    }
+  </script>
+</body>
+</html>
